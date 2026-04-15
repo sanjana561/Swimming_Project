@@ -600,7 +600,7 @@ async function submitAll(){
     registrationTime:new Date().toLocaleTimeString('en-IN'),children:regs};
 
   let saved=false;
-  if(CFG.scriptUrl!=='https://script.google.com/macros/s/AKfycbyOk7klTRVxZCxbaHNOAgDaD5y2evDddxRHaXRYxUKtFNUrWrFVYz0Pf5yVFgbXm3xT/exec'){
+  if(CFG.scriptUrl!=='https://script.google.com/macros/s/AKfycbwMA8tT4QnbAhezYy4_uCCayQy0SF4bsyVLM6WvEpSuBCsk-auvFtwhmbAFnGaJJVRDYg/exec'){
     try{
       await fetch(CFG.scriptUrl,{method:'POST',mode:'cors',
         headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
