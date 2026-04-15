@@ -600,9 +600,9 @@ async function submitAll(){
     registrationTime:new Date().toLocaleTimeString('en-IN'),children:regs};
 
   let saved=false;
-  if(CFG.scriptUrl!=='YOUR_APPS_SCRIPT_URL_HERE'){
+  if(CFG.scriptUrl!=='https://script.google.com/macros/s/AKfycbyOk7klTRVxZCxbaHNOAgDaD5y2evDddxRHaXRYxUKtFNUrWrFVYz0Pf5yVFgbXm3xT/exec'){
     try{
-      await fetch(CFG.scriptUrl,{method:'POST',mode:'no-cors',
+      await fetch(CFG.scriptUrl,{method:'POST',mode:'cors',
         headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
       saved=true;
     }catch(err){console.error(err);}
@@ -614,6 +614,7 @@ async function submitAll(){
   buildSuccess(saved);
   show('sec5');setStepper(5);
 }
+
 
 function buildSuccess(saved){
   const tbody=document.getElementById('reg-tbody');
@@ -670,4 +671,3 @@ calcFee();
 </script>
 </body>
 </html>
-
