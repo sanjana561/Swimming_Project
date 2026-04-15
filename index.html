@@ -177,7 +177,7 @@ const CFG = {
   clubName:    "Jai hind Swimming Club",
   upiId:       "raosanjanar-1@oksbi",
   feePerChild: 500,
-  scriptUrl:   "https://script.google.com/macros/s/AKfycbx5j7TT2iCoiCp0I2KAer8wsC_YP3jJ9CP1O5ms1U0x7R49Ig7malYfi4FtAeA8g4Cq/exec",
+  scriptUrl:   "https://script.google.com/macros/s/AKfycbyPCoTutYsGM-y7W-wv0CAh8p_hS8oNWjSK4UvmZwPDPPqr4Kh6h029BJJRAM45UaEBbg/exec",
 };
 </script>
 
@@ -600,12 +600,24 @@ async function submitAll(){
     registrationTime:new Date().toLocaleTimeString('en-IN'),children:regs};
 
   let saved=false;
-  if(CFG.scriptUrl!=='https://script.google.com/macros/s/AKfycbwMA8tT4QnbAhezYy4_uCCayQy0SF4bsyVLM6WvEpSuBCsk-auvFtwhmbAFnGaJJVRDYg/exec'){
+  if(CFG.scriptUrl !== 'https://script.google.com/macros/s/AKfycbx5j7TT2iCoiCp0I2KAer8wsC_YP3jJ9CP1O5ms1U0x7R49Ig7malYfi4FtAeA8g4Cq/exec'){
     try{
-      await fetch(CFG.scriptUrl,{method:'POST',mode:'cors',
-        headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-      saved=true;
-    }catch(err){console.error(err);}
+      const response = await fetch(CFG.scriptUrl, {
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify(payload)
+      });
+      if(response.ok){
+        saved = true;
+        console.log('Data saved successfully');
+      } else {
+        console.error('Failed to save:', response.status, response.statusText);
+        alert('Failed to save to Google Sheets. Check console for details.');
+      }
+    } catch(err){
+      console.error('Error saving to Google Sheets:', err);
+      alert('Error saving to Google Sheets: ' + err.message);
+    }
   }
 
   stxt.textContent='Wrapping up...';
